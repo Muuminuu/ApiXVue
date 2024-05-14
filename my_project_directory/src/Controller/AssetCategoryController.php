@@ -23,7 +23,7 @@ class AssetCategoryController extends AbstractController
         ): JsonResponse 
     {
         $assetList = $assetCategoryRepository->findAll();
-        $jsonAssetList = $serializer->serialize($assetList, 'json');
+        $jsonAssetList = $serializer->serialize($assetList, 'json', ['groups' => 'getAssetCategory']);
 
         return new JsonResponse($jsonAssetList, Response::HTTP_OK, [], true);
     }
@@ -38,7 +38,7 @@ class AssetCategoryController extends AbstractController
         $asset = $assetCategoryRepository->find($id);
         if ($asset)
         {
-            $jsonAsset = $serializer->serialize($asset, 'json');
+            $jsonAsset = $serializer->serialize($asset, 'json', ['groups' => 'getAssetCategory']);
             return new JsonResponse($jsonAsset, Response::HTTP_OK, [], true);
         }
         return new JsonResponse(null, Response::HTTP_NOT_FOUND);
